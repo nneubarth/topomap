@@ -23,15 +23,16 @@ h_control.StartCtrl;
 user_data.h_control = h_control;
 set(f, 'UserData', user_data);
 
-[temp, num_stage] = h_control.GetNumHWUnits(6, 0);
+[~, num_stage] = h_control.GetNumHWUnits(6, 0);
 if num_stage ~= 2
     fprintf(['Check the number of connected stages (Found' num2str(num_stage) ')!\n']);
     return
 end
 
 % Get the serial numbers
+SN_stage = cell(1,2);
 for count = 1 : num_stage
-    [temp, SN_stage{count}] = h_control.GetHWSerialNum(6, count - 1, 0); % Get the serial number of the devices
+    [~, SN_stage{count}] = h_control.GetHWSerialNum(6, count - 1, 0); % Get the serial number of the devices
 end
 
 h_stage_X = actxcontrol('MGMOTOR.MGMotorCtrl.1', [0 390 540 360], f);
