@@ -1,5 +1,5 @@
 classdef Grid < handle
-    properties (Hidden)
+    properties
         stepSize
         xSize
         ySize

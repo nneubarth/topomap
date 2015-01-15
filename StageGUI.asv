@@ -42,9 +42,11 @@ classdef StageGUI < handle
             h_stage_Y.MoveAbsolute(0,1);
             updatePos(SG)
         end
-        function gridStage(SG,Grid)
-            for i = 1:numel(Grid.xGrid)
-            moveStage(SG,Grid.xGrid(i),Grid.yGrid(i));
+        function gridStage(SG,G)
+            global h_stage_X;
+            global h_stage_Y;
+            for i = 1:numel(G.xGrid)
+            moveStage(G.xGrid(i),G.yR(i));
             end
         end
     end
