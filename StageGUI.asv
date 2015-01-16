@@ -55,7 +55,8 @@ classdef StageGUI < handle
                 moveStage(SG,Grid.xGrid(i),Grid.yGrid(i));
                 toc
                 
-
+            h_stage_X.registerevent({'MoveComplete' @SG.MoveCompleteHandler});
+            h_stage_Y.registerevent({'MoveComplete' @SG.MoveCompleteHandler});
                 
             end
         end
@@ -65,8 +66,6 @@ classdef StageGUI < handle
             h.Identify;
         end
         function RegisterEvent(SG)
-            h_stage_X.registerevent({'MoveComplete' @SG.MoveCompleteHandler});
-            h_stage_Y.registerevent({'MoveComplete' @SG.MoveCompleteHandler});
         end
         function MoveCompleteHandler(varargin)
            % pause(0.5); %dummy program
