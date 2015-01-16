@@ -1,4 +1,4 @@
-classdef Grid < handle
+classdef Grid < handle 
     properties
         stepSize
         xSize
@@ -24,12 +24,12 @@ classdef Grid < handle
             G.stepSize = stepSize;
             num_jogsx = floor(xSize/stepSize); %number of jogs per line
             num_jogsy = floor(ySize/stepSize);
-            G.xGrid = repmat(-stepSize*(0:1:floor(xSize/stepSize)),num_jogsx+1,1)' + startx;
-            G.yGrid = repmat(-stepSize*(0:1:(floor(ySize/stepSize))),num_jogsy+1,1) + starty;
-            for j = 2:2:num_jogsx
+            G.xGrid = repmat(-stepSize*(0:1:floor(xSize/stepSize)),num_jogsy+1,1)' + startx;
+            G.yGrid = repmat(-stepSize*(0:1:(floor(ySize/stepSize))),num_jogsx+1,1) + starty;
+            for j = 2:2:num_jogsy
                 G.xGrid(:,j) = flipud(G.xGrid(:,j));
             end
-            if sum(G.xGrid(:) < 0) > 0
+            if sum(G.xGrid(:) < 0) > 0 || sum(G.yGrid(:) < 0) > 0
                 exception = MException('GridGenerator:OutOfBoundsX', ...
                     'Grid is out of bounds in x dimension. Change start position of stages or change grid size. ');
                 throw(exception);
