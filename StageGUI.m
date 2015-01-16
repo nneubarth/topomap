@@ -9,7 +9,7 @@ classdef StageGUI < handle
     methods
         function SG = StageGUI
             % create StageGUI object
-            TLstage_init
+            SG.TLstage_init
             global h_stage_X;
             global h_stage_Y;
             
@@ -40,41 +40,22 @@ classdef StageGUI < handle
             h_stage_X.MoveAbsolute(0,1);
             h_stage_Y.SetAbsMovePos(0,yPosition);
             h_stage_Y.MoveAbsolute(0,1);
-                        
-
             updatePos(SG)
         end
         function gridStage(SG,Grid)
-            
+            global moving
             global h_stage_X
             global h_stage_Y
-            
             for i = 1:numel(Grid.xGrid)
-                
+                moving = 1;
                 tic
                 moveStage(SG,Grid.xGrid(i),Grid.yGrid(i));
-                toc
                 
-
+                toc
                 
             end
         end
-        function initMotor(h, SN)
-            h.StartCtrl;
-            set(h, 'HWSerialNum', SN); pause(0.1);
-            h.Identify;
-        end
-        function RegisterEvent(SG)
-            h_stage_X.registerevent({'MoveComplete' @SG.MoveCompleteHandler});
-            h_stage_Y.registerevent({'MoveComplete' @SG.MoveCompleteHandler});
-        end
-        function MoveCompleteHandler(varargin)
-           % pause(0.5); %dummy program
-            disp('Move Complete!');
-        end
-    end
-    methods(Static)
-        function TLstage_init
+        function TLstage_init(SG)
             %ThorLabs apt dc servo controller and linear motorized stage
             %ActiveX Matlab GUI
             %initialization and stage homing
@@ -111,10 +92,14 @@ classdef StageGUI < handle
             end
             
             h_stage_X = actxcontrol('MGMOTOR.MGMotorCtrl.1', [0 390 540 360], f);
-            initMotor(h_stage_X, SN_stage{1});
+            h_stage_X.StartCtrl;
+            set(h_stage_X, 'HWSerialNum', SN_stage{1}); pause(0.1);
+            h_stage_X.Identify;
             
             h_stage_Y = actxcontrol('MGMOTOR.MGMotorCtrl.1', [0 30 540 360], f);
-            initMotor(h_stage_Y, SN_stage{2});
+            h_stage_Y.StartCtrl;
+            set(h_stage_Y, 'HWSerialNum', SN_stage{2}); pause(0.1);
+            h_stage_Y.Identify;
             
             user_data.h_stage_X = h_stage_X;
             user_data.h_stage_Y = h_stage_Y;
@@ -124,6 +109,11 @@ classdef StageGUI < handle
             % second 0 is to move immediately
             h_stage_X.MoveHome(0,0);
             h_stage_Y.MoveHome(0,0);
+            
+            h_stage_X.registerevent({'MoveComplete' 'moveComplete'});
+            h_stage_Y.registerevent({'MoveComplete' 'moveComplete'});
+            
         end
+        
     end
 end
