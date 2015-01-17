@@ -37,15 +37,15 @@ classdef StageGUI < handle
             global h_stage_Y;
             %Move an absolute distance in mm
             h_stage_X.SetAbsMovePos(0,xPosition);
-            h_stage_X.MoveAbsolute(0,0);
+            h_stage_X.MoveAbsolute(0,1);
             h_stage_Y.SetAbsMovePos(0,yPosition);
-            h_stage_Y.MoveAbsolute(0,0);
+            h_stage_Y.MoveAbsolute(0,1);
             updatePos(SG)
         end
         function gridStep(SG,G)
             global h_stage_X
             global h_stage_Y
-            if G.gridPosition <= length(G.xGrid)
+            if G.gridPosition <= numel(G.xGrid)
             tic
             moveStage(SG,G.xGrid(G.gridPosition),G.yGrid(G.gridPosition));
             incrementGrid(G,1);

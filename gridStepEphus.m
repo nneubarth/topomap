@@ -1,10 +1,6 @@
-function [ output_args ] = gridStepEphus( grid,stage )
+function [ output_args ] = gridStepEphus(varargin)
 %GRIDSTEPEPHUS: to be called from ephus userFcns GUI by
-%the loopManager: iterate event. 
-%input args: Grid object and StageGUI object
-gridStep(stage,grid);
-
-
-
+%the xsg:Save event. 
+evalin('base',['gridStep(stest,gtest)']); %change stest and gtest to your stage and grid names, respectively
 end
 
