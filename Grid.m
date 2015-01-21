@@ -16,9 +16,10 @@ classdef Grid < handle
             %jogstep is desired jog step size in mm, x and y are dimensions
             %of grid in mm
             %must position stage at upper lefthand corner of grid
+            clear global gridinfo
             global h_stage_X;
             global h_stage_Y;
-            
+            global gridinfo;
             startx = h_stage_X.GetPosition_Position(0); %returns absolute position in mm for x
             starty = h_stage_Y.GetPosition_Position(0);  % for y
             
@@ -33,7 +34,7 @@ classdef Grid < handle
             for j = 2:2:num_jogsy
                 G.xGrid(:,j) = flipud(G.xGrid(:,j));
             end
-            if sum(G.xGrid(:) < 0) > 0 || sum(G.yGrid(:) < 0) > 0
+            if sum(G.xGrid(:) < 0) > 0
                 exception = MException('GridGenerator:OutOfBoundsX', ...
                     'Grid is out of bounds in x dimension. Change start position of stages or change grid size. ');
                 throw(exception);
@@ -45,6 +46,9 @@ classdef Grid < handle
             end
             G.gridPosition = 1; % start position
             makeGridListener(G)
+            gridinfo.xGrid = G.xGrid(:);
+            gridinfo.yGrid = G.yGrid(:);
+            gridinfo.acqNum = zeros(length(G.xGrid(:)),1);
         end
         function incrementGrid(G,steps)
             G.gridPosition = G.gridPosition + steps;

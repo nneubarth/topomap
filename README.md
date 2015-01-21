@@ -1,6 +1,6 @@
 stagetools
 =============
-package for controlling two ThorLabs linear motorized stages 
+package for controlling two Thorlabs linear motorized stages 
 
 **StageGUI:** class for creating, controlling, and tracking ThorLabs stages. 
 
