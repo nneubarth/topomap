@@ -9,3 +9,5 @@ package for controlling two ThorLabs linear motorized stages
 **moveComplete:** event handler for the MoveComplete event; can be used for triggering data acquisition. 
 
 **gridStepEphus:** for use with ephus electrophysiology acquisition software
+
+**gridgui:** GUI that creates Grid object according to user specifications and shows stage position in real-time

@@ -1,4 +1,4 @@
-classdef Grid < handle 
+classdef Grid < handle
     properties
         stepSize
         xSize
@@ -6,6 +6,9 @@ classdef Grid < handle
         gridPosition
         xGrid
         yGrid
+    end
+    events
+        IncrementGridPos
     end
     methods
         function G = Grid(stepSize,xSize,ySize)
@@ -26,6 +29,7 @@ classdef Grid < handle
             num_jogsy = floor(ySize/stepSize);
             G.xGrid = repmat(-stepSize*(0:1:floor(xSize/stepSize)),num_jogsy+1,1)' + startx;
             G.yGrid = repmat(-stepSize*(0:1:(floor(ySize/stepSize))),num_jogsx+1,1) + starty;
+            
             for j = 2:2:num_jogsy
                 G.xGrid(:,j) = flipud(G.xGrid(:,j));
             end
@@ -40,9 +44,15 @@ classdef Grid < handle
                 end
             end
             G.gridPosition = 1; % start position
+            makeGridListener(G)
         end
         function incrementGrid(G,steps)
             G.gridPosition = G.gridPosition + steps;
+            notify(G,'IncrementGridPos')
+        end
+        function makeGridListener(G)
+            addlistener(G, 'IncrementGridPos', ...
+                @listenUpdateGrid);
         end
     end
 end
