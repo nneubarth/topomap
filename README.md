@@ -11,3 +11,6 @@ package for controlling two Thorlabs linear motorized stages
 **gridStepEphus:** for use with ephus electrophysiology acquisition software
 
 **gridgui:** GUI that creates Grid object according to user specifications and shows stage position in real-time
+
+**listenUpdateGrid:** responds to IncrementGridPos event to update stage position on gridgui and saves acquisition numbers 
+and grid coordinates to a .mat file for analysis 
