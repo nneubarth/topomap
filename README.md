@@ -1,6 +1,6 @@
-stagetools
+topomap
 =============
-package for controlling two Thorlabs linear motorized stages 
+package for controlling Thorlabs linear motorized stages and mapping touch neuron receptive fields
 
 **StageGUI:** class for creating, controlling, and tracking ThorLabs stages. 
 
