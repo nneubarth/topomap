@@ -10,7 +10,10 @@ package for controlling Thorlabs linear motorized stages and mapping touch neuro
 
 **gridStepEphus:** for use with ephus electrophysiology acquisition software
 
-**gridgui:** GUI that creates Grid object according to user specifications and shows stage position in real-time
+**gridgui:** GUI that creates Grid object according to user specifications and shows stage position in real-time; 
+plots receptive field heat map when grid completes
 
 **listenUpdateGrid:** responds to IncrementGridPos event to update stage position on gridgui and saves acquisition numbers 
 and grid coordinates to a .mat file for analysis 
+
+**RFmap:** quick and dirty spike detection algorithm that generates receptive field heat map
