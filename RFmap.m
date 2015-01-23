@@ -9,7 +9,7 @@ function hmvalues = RFmap()
     for fnum = 1:length(fnums)
        numspikes(fnum) = spikedetection(date,fnums(fnum)); 
     end
-    hmvalues = reshape(numspikes,gtest.xSize,gtest.ySize);
+    hmvalues = reshape(numspikes,size(gtest.xGrid,1),size(gtest.xGrid,2));
     
 end
 
