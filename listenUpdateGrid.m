@@ -2,6 +2,7 @@ function varargout = listenUpdateGrid(varargin)
 %when grid moves get grid position
 global gtest
 global gridplot
+global rfplot
 global progmanagerglobal
 global gridinfo
 pos = gtest.gridPosition;
@@ -27,6 +28,9 @@ if (pos-1) == length(gtest.xGrid(:))
     number = num2str(length(dir([savedirectory '\*.mat'])));
     fname = fullfile(savedirectory,['gridinfo' number]);
     save(fname,'gridinfo')
+    hmvalues = RFmap;
+    imagesc(hmvalues,'Parent',rfplot)
+
 end
 %str = num2str(rto.OutputPort(1).Data);
 %get a handle to the GUI's 'current state' window
